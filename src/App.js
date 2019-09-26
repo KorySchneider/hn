@@ -1,24 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+
+const url = 'https://hacker-news.firebaseio.com/v0/';
 
 function App() {
+  const [topStories, setTopStories] = useState([]);
+  const [visibleItems, setVisibleItems] = useState([]);
+
+  async function fetchItem(id) {
+    const response = await fetch(`${url}/item/${id}.json`);
+    const result = await response.json();
+    return result;
+  }
+
+  useEffect(() => {
+    async function fetchTopStories() {
+      const response = await fetch(url + 'topstories.json');
+      const results = await response.json();
+
+      let items = [];
+      for (let i = 0; i < 5; i++) {
+        const item = await fetchItem(results[i]);
+        items.push(item);
+      }
+
+      setVisibleItems(items);
+      setTopStories(results);
+      return results;
+    }
+    fetchTopStories();
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {visibleItems.map(item => (
+        <div>
+          <p>{item.title}</p>
+        </div>
+      ))}
     </div>
   );
 }
