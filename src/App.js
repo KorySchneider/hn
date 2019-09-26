@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Slide from '@material-ui/core/Slide';
 
-const url = 'https://hacker-news.firebaseio.com/v0/';
+import Menu from './Menu';
+import Story from './Story';
+
+import Container from '@material-ui/core/Container';
+
+const url = 'https://hacker-news.firebaseio.com/v0';
 
 function App() {
   const [topStories, setTopStories] = useState([]);
@@ -23,7 +21,7 @@ function App() {
 
   useEffect(() => {
     async function fetchTopStories() {
-      const response = await fetch(url + 'topstories.json');
+      const response = await fetch(url + '/topstories.json');
       const results = await response.json();
 
       let items = [];
@@ -41,40 +39,8 @@ function App() {
 
   return (
     <Container maxWidth='md'>
-      <Paper style={{marginTop: '2em'}} elevation={2} align='center'>
-        <Button onClick={() => console.log('press')}>Top</Button>
-        <Button onClick={() => console.log('press')}>New</Button>
-        <Button onClick={() => console.log('press')}>Best</Button>
-        <Button onClick={() => console.log('press')}>Ask</Button>
-        <Button onClick={() => console.log('press')}>Show</Button>
-        <Button onClick={() => console.log('press')}>Job</Button>
-      </Paper>
-
-      {visibleItems.map(item => (
-        <Slide
-          direction='up'
-          in={item.title !== ''}
-          mountOnEnter
-          unmountOnExit
-          key={item.title}
-        >
-          <Card
-            onClick={() => {
-              if (item.url) window.open(item.url);
-            }}
-            style={{
-              margin: '2em auto',
-              cursor: 'pointer',
-            }}
-          >
-            <CardContent>
-              <Typography variant='h6'>
-                {item.title}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Slide>
-      ))}
+      <Menu />
+      {visibleItems.map(item => <Story data={item} key={item.title} />)}
     </Container>
   );
 }
