@@ -43,7 +43,7 @@ function nextPageBuffer(state = [], action) {
   }
 }
 
-function pageIndex(state = 20, action) {
+function pageIndex(state = 0, action) {
   switch(action.type) {
     case UPDATE_PAGE_INDEX:
       return action.index;

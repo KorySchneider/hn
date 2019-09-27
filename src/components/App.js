@@ -1,29 +1,45 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import {
+  updateIdCache,
+  updateVisibleStories,
+  updateNextPageBuffer,
+  updatePageIndex,
+} from '../redux/actions';
 
+import Menu from './Menu';
 import Story from './Story';
 
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import Modal from '@material-ui/core/Modal';
 
 const url = 'https://hacker-news.firebaseio.com/v0';
 const pageSize = 20;
 
-const menuStyle = {
-  margin: '2em auto',
-  padding: '0.5em',
-};
+const mapState = state => ({
+  section: state.section,
+  visibleStories: state.visibleStories,
+  idCache: state.idCache,
+  nextPageBuffer: state.nextPageBuffer,
+  pageIndex: state.pageIndex,
+});
 
-function App() {
-  const [section, setSection] = useState('ask');
-  const [topStories, setTopStories] = useState([]);
-  const [newStories, setNewStories] = useState([]);
-  const [bestStories, setBestStories] = useState([]);
-  const [askStories, setAskStories] = useState([]);
-  const [showStories, setShowStories] = useState([]);
-  const [jobStories, setJobStories] = useState([]);
-  const [visibleStories, setVisibleStories] = useState([]);
+const actionCreators = {
+  updateIdCache,
+  updateVisibleStories,
+  updateNextPageBuffer,
+  updatePageIndex,
+}
+
+function App({
+  visibleStories,
+  updateVisibleStories,
+  idCache,
+  updateIdCache,
+  nextPageBuffer,
+  updateNextPageBuffer,
+  section,
+  pageIndex,
+}) {
 
   const [commentsOpen, setCommentsOpen] = useState(false);
   const [commentsParent, setCommentsParent] = useState(null);
@@ -36,49 +52,34 @@ function App() {
 
   useEffect(() => {
     async function fetchStories() {
+      updateVisibleStories([]);
+
       const response = await fetch(url + `/${section}stories.json`);
       const results = await response.json();
 
+      updateIdCache(results);
+
       let items = [];
-      for (let i = 0; i < 25; i++) {
+      for (let i = pageIndex; i < pageSize; i++) {
         const item = await fetchItem(results[i]);
         items.push(item);
       }
+      updateVisibleStories(items);
 
-      setVisibleStories(items);
       return results;
     }
     fetchStories();
-  }, [])
-
-  function handleMenuClick(event) {
-    setSection(event.currentTarget.id);
-  }
+  }, [section])
 
   return (
     <Container maxWidth='md'>
       {/* Menu */}
-      <Paper style={menuStyle} elevation={2} align='center'>
-        <Button id='top' onClick={e => handleMenuClick(e)}>Top</Button>
-        <Button id='new' onClick={e => handleMenuClick(e)}>New</Button>
-        <Button id='best' onClick={e => handleMenuClick(e)}>Best</Button>
-        <Button id='ask' onClick={e => handleMenuClick(e)}>Ask</Button>
-        <Button id='show' onClick={e => handleMenuClick(e)}>Show</Button>
-        <Button id='job' onClick={e => handleMenuClick(e)}>Jobs</Button>
-      </Paper>
+      <Menu />
 
       {/* Stories */}
       {visibleStories.map(item => <Story data={item} key={item.title} />)}
-
-      {/* Comments */}
-      <Modal
-        open={commentsOpen}
-        onClose={() => setCommentsOpen(false)}
-      >
-        <p>modal test</p>
-      </Modal>
     </Container>
   );
 }
 
-export default App;
+export default connect(mapState, actionCreators)(App);
