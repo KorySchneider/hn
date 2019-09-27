@@ -5,6 +5,7 @@ import Story from './Story';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import Modal from '@material-ui/core/Modal';
 
 const url = 'https://hacker-news.firebaseio.com/v0';
 const pageSize = 20;
@@ -70,6 +71,12 @@ function App() {
       {visibleStories.map(item => <Story data={item} key={item.title} />)}
 
       {/* Comments */}
+      <Modal
+        open={commentsOpen}
+        onClose={() => setCommentsOpen(false)}
+      >
+        <p>modal test</p>
+      </Modal>
     </Container>
   );
 }
