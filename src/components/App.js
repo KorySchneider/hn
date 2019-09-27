@@ -66,7 +66,7 @@ function App({
       return results;
     }
     fetchStories();
-  }, [section])
+  }, [section, updateIdCache, updateVisibleStories, pageIndex, x, y])
 
   return (
     <Container maxWidth='md'>
