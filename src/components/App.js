@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   updateIdCache,
@@ -40,9 +40,6 @@ function App({
   section,
   pageIndex,
 }) {
-
-  const [commentsOpen, setCommentsOpen] = useState(false);
-  const [commentsParent, setCommentsParent] = useState(null);
 
   async function fetchItem(id) {
     const response = await fetch(`${url}/item/${id}.json`);
