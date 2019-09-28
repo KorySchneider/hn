@@ -19,7 +19,6 @@ const pageSize = 20;
 const mapState = state => ({
   section: state.section,
   visibleStories: state.visibleStories,
-  visibleValid: state.visibleValid,
   idCache: state.idCache,
   nextPageBuffer: state.nextPageBuffer,
   pageIndex: state.pageIndex,
