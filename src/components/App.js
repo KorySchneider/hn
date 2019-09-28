@@ -49,8 +49,6 @@ function App({
 
   useEffect(() => {
     async function fetchStories() {
-      updateVisibleStories([]);
-
       const response = await fetch(url + `/${section}stories.json`);
       const results = await response.json();
 
@@ -62,8 +60,6 @@ function App({
         items.push(item);
       }
       updateVisibleStories(items);
-
-      return results;
     }
     fetchStories();
   }, [section, updateIdCache, updateVisibleStories, pageIndex])
@@ -74,7 +70,9 @@ function App({
       <Menu />
 
       {/* Stories */}
-      {visibleStories.map(item => <Story data={item} key={item.title} />)}
+      {visibleStories.map((item, i) => (
+        <Story data={item} key={item.title} timeout={i * 50} />
+      ))}
     </Container>
   );
 }

@@ -5,21 +5,22 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-function Story(props) {
+function Story({ data, timeout }) {
   const [expanded, setExpanded] = useState(false);
 
   const handleClick = () => {
-    if (props.data.url) window.open(props.data.url);
-    if (props.data.text) setExpanded(!expanded);
+    if (data.url) window.open(data.url);
+    if (data.text) setExpanded(expanded => !expanded);
   }
 
   return (
     <Slide
-      direction='up'
-      in={props.data.title !== ''}
+      direction='right'
+      in={data.title !== ''}
       mountOnEnter
       unmountOnExit
-      key={props.data.title}
+      key={data.title}
+      style={{ transitionDelay: `${timeout}ms` }}
     >
       <Card
         onClick={handleClick}
@@ -30,18 +31,16 @@ function Story(props) {
       >
         <CardContent>
           <Typography variant='h5'>
-            {props.data.title}
+            {data.title}
           </Typography>
           <Typography>
-            {expanded && props.data.text}
-            {/*expanded &&
-              <Button onClick={showComments(props.data.id)}>
-                Comments
-              </Button>
-              */}
-            {!expanded && props.data.text &&
-              props.data.text.substring(0, 80) + '...'
+            {expanded && data.text}
+            {!expanded && data.text &&
+              data.text.substring(0, 80) + '...'
             }
+          </Typography>
+          <Typography>
+            {data.score}
           </Typography>
         </CardContent>
       </Card>
