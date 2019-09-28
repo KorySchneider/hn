@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {
   updateIdCache,
   updateVisibleStories,
+  updateVisibleValid,
   updateNextPageBuffer,
   updatePageIndex,
 } from '../redux/actions';
@@ -18,6 +19,7 @@ const pageSize = 20;
 const mapState = state => ({
   section: state.section,
   visibleStories: state.visibleStories,
+  visibleValid: state.visibleValid,
   idCache: state.idCache,
   nextPageBuffer: state.nextPageBuffer,
   pageIndex: state.pageIndex,
@@ -26,6 +28,7 @@ const mapState = state => ({
 const actionCreators = {
   updateIdCache,
   updateVisibleStories,
+  updateVisibleValid,
   updateNextPageBuffer,
   updatePageIndex,
 }
@@ -33,6 +36,7 @@ const actionCreators = {
 function App({
   visibleStories,
   updateVisibleStories,
+  updateVisibleValid,
   idCache,
   updateIdCache,
   nextPageBuffer,
@@ -49,6 +53,8 @@ function App({
 
   useEffect(() => {
     async function fetchStories() {
+      updateVisibleValid(false);
+
       const response = await fetch(url + `/${section}stories.json`);
       const results = await response.json();
 
@@ -60,6 +66,7 @@ function App({
         items.push(item);
       }
       updateVisibleStories(items);
+      updateVisibleValid(true);
     }
     fetchStories();
   }, [section, updateIdCache, updateVisibleStories, pageIndex])

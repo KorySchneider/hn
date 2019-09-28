@@ -1,6 +1,7 @@
 export const UPDATE_ID_CACHE = 'UPDATE_ID_CACHE';
 export const UPDATE_SECTION = 'UPDATE_SECTION';
 export const UPDATE_VISIBLE_STORIES = 'UPDATE_VISIBLE_STORIES';
+export const UPDATE_VISIBLE_VALID = 'UPDATE_VISIBLE_VALID';
 export const UPDATE_NEXT_PAGE_BUFFER = 'UPDATE_NEXT_PAGE_BUFFER';
 export const UPDATE_PAGE_INDEX = 'UPDATE_PAGE_INDEX';
 
@@ -22,6 +23,13 @@ export function updateVisibleStories(stories) {
   return {
     type: UPDATE_VISIBLE_STORIES,
     stories: stories,
+  }
+}
+
+export function updateVisibleValid(valid) {
+  return {
+    type: UPDATE_VISIBLE_VALID,
+    valid: valid,
   }
 }
 
