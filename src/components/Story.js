@@ -10,6 +10,10 @@ const mapState = state => ({
   visible: state.visibleValid,
 });
 
+const subtextStyle = {
+  marginRight: '20px',
+};
+
 function Story({ data, timeout, visible }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -35,7 +39,7 @@ function Story({ data, timeout, visible }) {
         }}
       >
         <CardContent>
-          <Typography variant='h5'>
+          <Typography variant='h6'>
             {data.title}
           </Typography>
           <Typography>
@@ -44,8 +48,11 @@ function Story({ data, timeout, visible }) {
               data.text.substring(0, 80) + '...'
             }
           </Typography>
-          <Typography>
-            {data.score}
+          <Typography variant='overline' style={subtextStyle}>
+            {data.score + ' points'}
+          </Typography>
+          <Typography variant='overline' style={subtextStyle}>
+            {data.kids && data.kids.length + ' replies'}
           </Typography>
         </CardContent>
       </Card>
