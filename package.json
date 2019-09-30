@@ -6,6 +6,7 @@
   "dependencies": {
     "@material-ui/core": "^4.4.3",
     "@material-ui/icons": "^4.4.3",
+    "html2plaintext": "^2.1.2",
     "moment": "^2.24.0",
     "react": "^16.9.0",
     "react-bottom-scroll-listener": "^3.0.0",

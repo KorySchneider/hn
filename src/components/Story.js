@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import moment from 'moment';
+import h2p from 'html2plaintext';
 
 import Slide from '@material-ui/core/Slide';
 import Card from '@material-ui/core/Card';
@@ -46,19 +47,19 @@ function Story({ data, timeout }) {
             {data.title}
           </Typography>
           <Typography>
-            {expanded && data.text}
+            {expanded && h2p(data.text)}
             {!expanded && data.text &&
-              data.text.substring(0, 80) + '...'
+              h2p(data.text.substring(0, 70) + '...')
             }
           </Typography>
           <Typography variant='overline' style={subtextStyle}>
             {data.score + ' points'}
           </Typography>
-          <Typography onClick={e => openComments(e)} variant='overline' style={subtextStyle}>
-            {(data.kids && data.kids.length + ' replies') || '0 replies'}
-          </Typography>
           <Typography variant='overline' style={subtextStyle}>
             {moment.unix(data.time).fromNow()}
+          </Typography>
+          <Typography onClick={e => openComments(e)} variant='overline' style={subtextStyle}>
+            {(data.kids && data.kids.length + ' replies') || '0 replies'}
           </Typography>
         </CardContent>
       </Card>
