@@ -6,6 +6,8 @@ import {
   UPDATE_VISIBLE_VALID,
   UPDATE_NEXT_PAGE_BUFFER,
   UPDATE_PAGE_INDEX,
+  UPDATE_COMMENTS_OPEN,
+  UPDATE_COMMENTS_ID,
 } from './actions';
 
 function idCache(state = [], action) {
@@ -62,6 +64,24 @@ function pageIndex(state = 0, action) {
   }
 }
 
+function commentsOpen(state = false, action) {
+  switch(action.type) {
+    case UPDATE_COMMENTS_OPEN:
+      return action.open;
+    default:
+      return state;
+  }
+}
+
+function commentsId(state = null, action) {
+  switch(action.type) {
+    case UPDATE_COMMENTS_ID:
+      return action.id;
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
   idCache,
   section,
@@ -69,6 +89,8 @@ const rootReducer = combineReducers({
   visibleValid,
   nextPageBuffer,
   pageIndex,
+  commentsOpen,
+  commentsId,
 });
 
 export default rootReducer;
