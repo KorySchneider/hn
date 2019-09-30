@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
+import moment from 'moment';
+
 import Slide from '@material-ui/core/Slide';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -59,6 +61,9 @@ function Story({ data, timeout, visible }) {
           </Typography>
           <Typography onClick={e => openComments(e)} variant='overline' style={subtextStyle}>
             {(data.kids && data.kids.length + ' replies') || '0 replies'}
+          </Typography>
+          <Typography variant='overline' style={subtextStyle}>
+            {moment.unix(data.time).fromNow()}
           </Typography>
         </CardContent>
       </Card>
