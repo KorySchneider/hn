@@ -68,7 +68,13 @@ function App({
       updateVisibleValid(true);
     }
     fetchStories();
-  }, [section, updateIdCache, updateVisibleStories, pageIndex])
+  }, [
+    section,
+    updateIdCache,
+    updateVisibleStories,
+    updateVisibleValid,
+    pageIndex,
+  ])
 
   return (
     <Container maxWidth='md'>
