@@ -19,7 +19,7 @@ const style = {
   padding: '0.5em',
 };
 
-function Menu({ updateSection }) {
+function Menu({ section, updateSection }) {
 
   function handleMenuClick(event) {
     updateSection(event.currentTarget.id);
@@ -27,12 +27,53 @@ function Menu({ updateSection }) {
 
   return (
     <Paper style={style} elevation={2} align='center'>
-      <Button id='top' onClick={e => handleMenuClick(e)}>Top</Button>
-      <Button id='new' onClick={e => handleMenuClick(e)}>New</Button>
-      <Button id='best' onClick={e => handleMenuClick(e)}>Best</Button>
-      <Button id='ask' onClick={e => handleMenuClick(e)}>Ask</Button>
-      <Button id='show' onClick={e => handleMenuClick(e)}>Show</Button>
-      <Button id='job' onClick={e => handleMenuClick(e)}>Jobs</Button>
+      <Button
+        disabled={section == 'top'}
+        id='top'
+        onClick={e => handleMenuClick(e)}
+      >
+        Top
+      </Button>
+
+      <Button
+        disabled={section == 'new'}
+        id='new'
+        onClick={e => handleMenuClick(e)}
+      >
+        New
+      </Button>
+
+      <Button
+        disabled={section == 'best'}
+        id='best'
+        onClick={e => handleMenuClick(e)}
+      >
+        Best
+      </Button>
+
+      <Button
+        disabled={section == 'ask'}
+        id='ask'
+        onClick={e => handleMenuClick(e)}
+      >
+        Ask
+      </Button>
+
+      <Button
+        disabled={section == 'show'}
+        id='show'
+        onClick={e => handleMenuClick(e)}
+      >
+        Show
+      </Button>
+
+      <Button
+        disabled={section == 'job'}
+        id='job'
+        onClick={e => handleMenuClick(e)}
+      >
+        Jobs
+      </Button>
     </Paper>
   )
 }
