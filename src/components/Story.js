@@ -17,9 +17,15 @@ const subtextStyle = {
 function Story({ data, timeout, visible }) {
   const [expanded, setExpanded] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.stopPropagation();
     if (data.url) window.open(data.url);
     if (data.text) setExpanded(expanded => !expanded);
+  }
+
+  const openComments = (e) => {
+    e.stopPropagation();
+    window.open(`https://news.ycombinator.com/item?id=${data.id}`);
   }
 
   return (
@@ -32,7 +38,7 @@ function Story({ data, timeout, visible }) {
       style={{ transitionDelay: `${timeout}ms` }}
     >
       <Card
-        onClick={handleClick}
+        onClick={e => handleClick(e)}
         style={{
           margin: '2em auto',
           cursor: 'pointer',
@@ -51,7 +57,7 @@ function Story({ data, timeout, visible }) {
           <Typography variant='overline' style={subtextStyle}>
             {data.score + ' points'}
           </Typography>
-          <Typography variant='overline' style={subtextStyle}>
+          <Typography onClick={e => openComments(e)} variant='overline' style={subtextStyle}>
             {data.kids && data.kids.length + ' replies'}
           </Typography>
         </CardContent>
