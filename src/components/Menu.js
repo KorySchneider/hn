@@ -1,17 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { updateSection } from '../redux/actions';
+import {
+  updateSection,
+  updateIdCache,
+  updateCurrentPage,
+  updateVisibleValid,
+} from '../redux/actions';
+
+import { url } from '../redux/store';
 
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
 const mapState = state => ({
   section: state.section,
+  idCache: state.idCache,
 });
 
 const actionCreators = {
   updateSection,
+  updateIdCache,
+  updateCurrentPage,
+  updateVisibleValid,
 };
 
 const style = {
@@ -19,11 +30,33 @@ const style = {
   padding: '0.5em',
 };
 
-function Menu({ section, updateSection }) {
+function Menu({
+  section,
+  updateSection,
+  idCache,
+  updateIdCache,
+  updateCurrentPage,
+  updateVisibleValid,
+}) {
 
   function handleMenuClick(event) {
-    updateSection(event.currentTarget.id);
+    event.stopPropagation();
+    let clickedSection = event.currentTarget.id;
+    if (clickedSection !== section) {
+      updateVisibleValid(false);
+      updateSection(clickedSection);
+      updateCurrentPage(1);
+    }
   }
+
+  useEffect(() => {
+    async function fetchIds() {
+      const response = await fetch(url + `/${section}stories.json`);
+      const results = await response.json();
+      updateIdCache(results);
+    }
+    fetchIds();
+  }, [section, updateIdCache])
 
   return (
     <Paper style={style} elevation={2} align='center'>

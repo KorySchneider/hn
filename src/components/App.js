@@ -4,8 +4,10 @@ import {
   updateIdCache,
   updateVisibleStories,
   updateVisibleValid,
-  updatePageIndex,
+  updateCurrentPage,
 } from '../redux/actions';
+
+import { url, pageSize } from '../redux/store';
 
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
@@ -13,23 +15,19 @@ import Menu from './Menu';
 import Story from './Story';
 
 import Container from '@material-ui/core/Container';
-
-const url = 'https://hacker-news.firebaseio.com/v0';
-const pageSize = 10;
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const mapState = state => ({
-  section: state.section,
   visibleStories: state.visibleStories,
   idCache: state.idCache,
-  pageIndex: state.pageIndex,
+  page: state.currentPage,
 });
 
 const actionCreators = {
   updateIdCache,
   updateVisibleStories,
   updateVisibleValid,
-  updatePageIndex,
+  updateCurrentPage,
 }
 
 function App({
@@ -38,13 +36,15 @@ function App({
   updateVisibleValid,
   idCache,
   updateIdCache,
-  section,
-  pageIndex,
+  page,
+  updateCurrentPage,
 }) {
 
   useBottomScrollListener(() => {
-    console.log('load more here')
-  })
+    if (visibleStories.length === page * pageSize) {
+      updateCurrentPage(++page);
+    }
+  }, 500, 200)
 
   async function fetchItem(id) {
     const response = await fetch(`${url}/item/${id}.json`);
@@ -53,29 +53,27 @@ function App({
   }
 
   useEffect(() => {
-    async function fetchStories() {
-      updateVisibleValid(false);
-
-      const response = await fetch(url + `/${section}stories.json`);
-      const results = await response.json();
-
-      updateIdCache(results);
-
-      let items = [];
-      for (let i = pageIndex; i < pageSize; i++) {
-        const item = await fetchItem(results[i]);
-        items.push(item);
+    async function fetchPage() {
+      if (idCache.length > 0) {
+        let stories = [];
+        const ids = idCache.slice(
+          (page * pageSize) - pageSize,
+          page * pageSize
+        );
+        for (let i = 0; i < ids.length; i++) {
+          const story = await fetchItem(ids[i]);
+          stories.push(story);
+        }
+        updateVisibleStories(visibleStories.concat(stories));
+        updateVisibleValid(true);
       }
-      updateVisibleStories(items);
-      updateVisibleValid(true);
     }
-    fetchStories();
+    fetchPage();
   }, [
-    section,
-    updateIdCache,
+    page,
+    idCache,
     updateVisibleStories,
     updateVisibleValid,
-    pageIndex,
   ])
 
   return (
