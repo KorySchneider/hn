@@ -3,7 +3,6 @@ import {
   UPDATE_ID_CACHE,
   UPDATE_SECTION,
   UPDATE_VISIBLE_STORIES,
-  UPDATE_VISIBLE_VALID,
   UPDATE_CURRENT_PAGE,
 } from './actions';
 
@@ -34,15 +33,6 @@ function visibleStories(state = [], action) {
   }
 }
 
-function visibleValid(state = true, action) {
-  switch(action.type) {
-    case UPDATE_VISIBLE_VALID:
-      return action.valid;
-    default:
-      return state;
-  }
-}
-
 function currentPage(state = 1, action) {
   switch(action.type) {
     case UPDATE_CURRENT_PAGE:
@@ -56,7 +46,6 @@ const rootReducer = combineReducers({
   idCache,
   section,
   visibleStories,
-  visibleValid,
   currentPage,
 });
 

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {
   updateIdCache,
   updateVisibleStories,
-  updateVisibleValid,
   updateCurrentPage,
 } from '../redux/actions';
 
@@ -26,14 +25,12 @@ const mapState = state => ({
 const actionCreators = {
   updateIdCache,
   updateVisibleStories,
-  updateVisibleValid,
   updateCurrentPage,
 }
 
 function App({
   visibleStories,
   updateVisibleStories,
-  updateVisibleValid,
   idCache,
   updateIdCache,
   page,
@@ -65,7 +62,6 @@ function App({
           stories.push(story);
         }
         updateVisibleStories(visibleStories.concat(stories));
-        updateVisibleValid(true);
       }
     }
     fetchPage();
@@ -73,7 +69,6 @@ function App({
     page,
     idCache,
     updateVisibleStories,
-    updateVisibleValid,
   ])
 
   return (

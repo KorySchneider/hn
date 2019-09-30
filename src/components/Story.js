@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 
 import moment from 'moment';
 
@@ -8,15 +7,11 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-const mapState = state => ({
-  visible: state.visibleValid,
-});
-
 const subtextStyle = {
   marginRight: '20px',
 };
 
-function Story({ data, timeout, visible }) {
+function Story({ data, timeout }) {
   const [expanded, setExpanded] = useState(false);
 
   const handleClick = (e) => {
@@ -32,8 +27,8 @@ function Story({ data, timeout, visible }) {
 
   return (
     <Slide
-      direction='right'
-      in={visible}
+      direction='up'
+      in={data.title !== ''}
       mountOnEnter
       unmountOnExit
       key={data.title}
@@ -71,4 +66,4 @@ function Story({ data, timeout, visible }) {
   )
 }
 
-export default connect(mapState)(Story);
+export default Story;

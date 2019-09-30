@@ -5,7 +5,7 @@ import {
   updateSection,
   updateIdCache,
   updateCurrentPage,
-  updateVisibleValid,
+  updateVisibleStories,
 } from '../redux/actions';
 
 import { url } from '../redux/store';
@@ -22,7 +22,7 @@ const actionCreators = {
   updateSection,
   updateIdCache,
   updateCurrentPage,
-  updateVisibleValid,
+  updateVisibleStories,
 };
 
 const style = {
@@ -36,14 +36,14 @@ function Menu({
   idCache,
   updateIdCache,
   updateCurrentPage,
-  updateVisibleValid,
+  updateVisibleStories,
 }) {
 
   function handleMenuClick(event) {
     event.stopPropagation();
     let clickedSection = event.currentTarget.id;
     if (clickedSection !== section) {
-      updateVisibleValid(false);
+      updateVisibleStories([]);
       updateSection(clickedSection);
       updateCurrentPage(1);
     }
