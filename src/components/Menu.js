@@ -28,7 +28,7 @@ function Menu({ section, updateSection }) {
   return (
     <Paper style={style} elevation={2} align='center'>
       <Button
-        disabled={section == 'top'}
+        disabled={section === 'top'}
         id='top'
         onClick={e => handleMenuClick(e)}
       >
@@ -36,7 +36,7 @@ function Menu({ section, updateSection }) {
       </Button>
 
       <Button
-        disabled={section == 'new'}
+        disabled={section === 'new'}
         id='new'
         onClick={e => handleMenuClick(e)}
       >
@@ -44,7 +44,7 @@ function Menu({ section, updateSection }) {
       </Button>
 
       <Button
-        disabled={section == 'best'}
+        disabled={section === 'best'}
         id='best'
         onClick={e => handleMenuClick(e)}
       >
@@ -52,7 +52,7 @@ function Menu({ section, updateSection }) {
       </Button>
 
       <Button
-        disabled={section == 'ask'}
+        disabled={section === 'ask'}
         id='ask'
         onClick={e => handleMenuClick(e)}
       >
@@ -60,7 +60,7 @@ function Menu({ section, updateSection }) {
       </Button>
 
       <Button
-        disabled={section == 'show'}
+        disabled={section === 'show'}
         id='show'
         onClick={e => handleMenuClick(e)}
       >
@@ -68,7 +68,7 @@ function Menu({ section, updateSection }) {
       </Button>
 
       <Button
-        disabled={section == 'job'}
+        disabled={section === 'job'}
         id='job'
         onClick={e => handleMenuClick(e)}
       >
