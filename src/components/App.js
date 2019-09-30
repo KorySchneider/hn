@@ -16,6 +16,7 @@ import Container from '@material-ui/core/Container';
 
 const url = 'https://hacker-news.firebaseio.com/v0';
 const pageSize = 10;
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const mapState = state => ({
   section: state.section,
@@ -86,6 +87,10 @@ function App({
       {visibleStories.map((item, i) => (
         <Story data={item} key={item.title} timeout={i * 50} />
       ))}
+
+      <Container align='center'>
+        <CircularProgress style={{ margin: '2em' }} />
+      </Container>
     </Container>
   );
 }
