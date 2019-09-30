@@ -14,7 +14,7 @@ import Story from './Story';
 import Container from '@material-ui/core/Container';
 
 const url = 'https://hacker-news.firebaseio.com/v0';
-const pageSize = 20;
+const pageSize = 10;
 
 const mapState = state => ({
   section: state.section,
