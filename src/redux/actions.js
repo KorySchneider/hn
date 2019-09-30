@@ -2,7 +2,6 @@ export const UPDATE_ID_CACHE = 'UPDATE_ID_CACHE';
 export const UPDATE_SECTION = 'UPDATE_SECTION';
 export const UPDATE_VISIBLE_STORIES = 'UPDATE_VISIBLE_STORIES';
 export const UPDATE_VISIBLE_VALID = 'UPDATE_VISIBLE_VALID';
-export const UPDATE_NEXT_PAGE_BUFFER = 'UPDATE_NEXT_PAGE_BUFFER';
 export const UPDATE_PAGE_INDEX = 'UPDATE_PAGE_INDEX';
 export const UPDATE_COMMENTS_OPEN = 'UPDATE_COMMENTS_OPEN';
 export const UPDATE_COMMENTS_ID = 'UPDATE_COMMENTS_ID';
@@ -32,13 +31,6 @@ export function updateVisibleValid(valid) {
   return {
     type: UPDATE_VISIBLE_VALID,
     valid: valid,
-  }
-}
-
-export function updateNextPageBuffer(stories) {
-  return {
-    type: UPDATE_NEXT_PAGE_BUFFER,
-    stories: stories,
   }
 }
 

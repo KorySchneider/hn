@@ -4,7 +4,6 @@ import {
   updateIdCache,
   updateVisibleStories,
   updateVisibleValid,
-  updateNextPageBuffer,
   updatePageIndex,
 } from '../redux/actions';
 
@@ -22,7 +21,6 @@ const mapState = state => ({
   section: state.section,
   visibleStories: state.visibleStories,
   idCache: state.idCache,
-  nextPageBuffer: state.nextPageBuffer,
   pageIndex: state.pageIndex,
 });
 
@@ -30,7 +28,6 @@ const actionCreators = {
   updateIdCache,
   updateVisibleStories,
   updateVisibleValid,
-  updateNextPageBuffer,
   updatePageIndex,
 }
 
@@ -40,8 +37,6 @@ function App({
   updateVisibleValid,
   idCache,
   updateIdCache,
-  nextPageBuffer,
-  updateNextPageBuffer,
   section,
   pageIndex,
 }) {

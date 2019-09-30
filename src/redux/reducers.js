@@ -4,7 +4,6 @@ import {
   UPDATE_SECTION,
   UPDATE_VISIBLE_STORIES,
   UPDATE_VISIBLE_VALID,
-  UPDATE_NEXT_PAGE_BUFFER,
   UPDATE_PAGE_INDEX,
   UPDATE_COMMENTS_OPEN,
   UPDATE_COMMENTS_ID,
@@ -46,15 +45,6 @@ function visibleValid(state = true, action) {
   }
 }
 
-function nextPageBuffer(state = [], action) {
-  switch(action.type) {
-    case UPDATE_NEXT_PAGE_BUFFER:
-      return action.stories;
-    default:
-      return state;
-  }
-}
-
 function pageIndex(state = 0, action) {
   switch(action.type) {
     case UPDATE_PAGE_INDEX:
@@ -87,7 +77,6 @@ const rootReducer = combineReducers({
   section,
   visibleStories,
   visibleValid,
-  nextPageBuffer,
   pageIndex,
   commentsOpen,
   commentsId,
