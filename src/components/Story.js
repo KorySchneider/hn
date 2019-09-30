@@ -58,7 +58,7 @@ function Story({ data, timeout, visible }) {
             {data.score + ' points'}
           </Typography>
           <Typography onClick={e => openComments(e)} variant='overline' style={subtextStyle}>
-            {data.kids && data.kids.length + ' replies'}
+            {(data.kids && data.kids.length + ' replies') || '0 replies'}
           </Typography>
         </CardContent>
       </Card>
