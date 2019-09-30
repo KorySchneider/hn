@@ -8,6 +8,8 @@ import {
   updatePageIndex,
 } from '../redux/actions';
 
+import { useBottomScrollListener } from 'react-bottom-scroll-listener';
+
 import Menu from './Menu';
 import Story from './Story';
 
@@ -43,6 +45,10 @@ function App({
   section,
   pageIndex,
 }) {
+
+  useBottomScrollListener(() => {
+    console.log('load more here')
+  })
 
   async function fetchItem(id) {
     const response = await fetch(`${url}/item/${id}.json`);
