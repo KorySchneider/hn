@@ -32,7 +32,7 @@ function Story({ data, timeout }) {
       in={data.title !== ''}
       mountOnEnter
       unmountOnExit
-      key={data.title}
+      key={data.id}
       style={{ transitionDelay: `${timeout}ms` }}
     >
       <Card
@@ -44,7 +44,7 @@ function Story({ data, timeout }) {
       >
         <CardContent>
           <Typography variant='h6'>
-            {data.title}
+            {h2p(data.title)}
           </Typography>
           <Typography>
             {expanded && h2p(data.text)}
