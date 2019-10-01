@@ -6,6 +6,7 @@ import h2p from 'html2plaintext';
 import Slide from '@material-ui/core/Slide';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 const subtextStyle = {
@@ -14,9 +15,11 @@ const subtextStyle = {
 
 function Story({ data, timeout }) {
   const [expanded, setExpanded] = useState(false);
+  const [contentViewed, setContentViewed] = useState(false);
 
   const handleClick = (e) => {
     e.stopPropagation();
+    setContentViewed(true);
     if (data.url) window.open(data.url);
     if (data.text) setExpanded(expanded => !expanded);
   }
@@ -58,9 +61,15 @@ function Story({ data, timeout }) {
           <Typography variant='overline' style={subtextStyle}>
             {moment.unix(data.time).fromNow()}
           </Typography>
-          <Typography onClick={e => openComments(e)} variant='overline' style={subtextStyle}>
+          <Button
+            onClick={e => openComments(e)}
+            variant='overline'
+            style={subtextStyle}
+            size='small'
+            disabled={!contentViewed}
+          >
             {(data.kids && data.kids.length + ' replies') || '0 replies'}
-          </Typography>
+          </Button>
         </CardContent>
       </Card>
     </Slide>
