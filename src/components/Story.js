@@ -55,6 +55,9 @@ function Story({ data, timeout }) {
               h2p(data.text.substring(0, 70) + '...')
             }
           </Typography>
+          <Typography variant='caption' display='block' gutterBottom>
+            {data.url && data.url.split('/')[2].replace(/^www\./, '')}
+          </Typography>
           <Typography variant='overline' style={subtextStyle}>
             {data.score + ' points'}
           </Typography>
@@ -63,7 +66,6 @@ function Story({ data, timeout }) {
           </Typography>
           <Button
             onClick={e => openComments(e)}
-            variant='overline'
             style={subtextStyle}
             size='small'
             disabled={!contentViewed}
