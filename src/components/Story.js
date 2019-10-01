@@ -28,7 +28,7 @@ function Story({ data, timeout }) {
 
   return (
     <Slide
-      direction='up'
+      direction='right'
       in={data.title !== ''}
       mountOnEnter
       unmountOnExit
