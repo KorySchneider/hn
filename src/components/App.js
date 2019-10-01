@@ -51,7 +51,7 @@ function App({
 
   useEffect(() => {
     async function fetchPage() {
-      if (idCache.length > 0) {
+      if (idCache.length > 0 && visibleStories.length < page * pageSize) {
         let stories = [];
         const ids = idCache.slice(
           (page * pageSize) - pageSize,
@@ -68,6 +68,7 @@ function App({
   }, [
     page,
     idCache,
+    visibleStories,
     updateVisibleStories,
   ])
 
