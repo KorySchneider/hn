@@ -52,7 +52,7 @@ function Story({ data, timeout }) {
           <Typography variant='caption' align='right' gutterBottom>
             {data.url && data.url.split('/')[2].replace(/^www\./, '')}
           </Typography>
-          <Typography>
+          <Typography gutterBottom>
             {expanded && h2p(data.text)}
             {!expanded && data.text &&
               h2p(data.text.substring(0, 70) + '...')
