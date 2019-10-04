@@ -4,6 +4,8 @@ import {
   UPDATE_SECTION,
   UPDATE_VISIBLE_STORIES,
   UPDATE_CURRENT_PAGE,
+  UPDATE_COMMENTS_OPEN,
+  UPDATE_COMMENTS,
 } from './actions';
 
 function idCache(state = [], action) {
@@ -42,11 +44,31 @@ function currentPage(state = 1, action) {
   }
 }
 
+function commentsOpen(state = false, action) {
+  switch(action.type) {
+    case UPDATE_COMMENTS_OPEN:
+      return action.open;
+    default:
+      return state;
+  }
+}
+
+function comments(state = [], action) {
+  switch(action.type) {
+    case UPDATE_COMMENTS:
+      return action.comments;
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
   idCache,
   section,
   visibleStories,
   currentPage,
+  commentsOpen,
+  comments,
 });
 
 export default rootReducer;

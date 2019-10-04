@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { localStorageViewedKey } from '../redux/store';
+
+import {
+  updateCommentsOpen,
+  updateComments,
+} from '../redux/actions';
 
 import moment from 'moment';
 import h2p from 'html2plaintext';
@@ -16,7 +22,22 @@ const subtextStyle = {
   padding: '5px',
 };
 
-function Story({ data, timeout }) {
+const mapState = state => ({
+  commentsOpen: state.commentsOpen,
+});
+
+const actionCreators = {
+  updateCommentsOpen,
+  updateComments,
+};
+
+function Story({
+  data,
+  timeout,
+  commentsOpen,
+  updateCommentsOpen,
+  updateComments,
+}) {
   const [expanded, setExpanded] = useState(false);
   const [viewed, setViewed] = useState(false);
 
@@ -55,7 +76,9 @@ function Story({ data, timeout }) {
 
   const openComments = (e) => {
     e.stopPropagation();
-    window.open(`https://news.ycombinator.com/item?id=${data.id}`);
+    //window.open(`https://news.ycombinator.com/item?id=${data.id}`);
+    updateCommentsOpen(true);
+    updateComments(data.kids);
   }
 
   return (
@@ -113,4 +136,4 @@ function Story({ data, timeout }) {
   )
 }
 
-export default Story;
+export default connect(mapState, actionCreators)(Story);

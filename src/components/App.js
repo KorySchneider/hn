@@ -14,6 +14,7 @@ import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
 import Menu from './Menu';
 import Story from './Story';
+import Comments from './Comments';
 
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -28,7 +29,7 @@ const actionCreators = {
   updateIdCache,
   updateVisibleStories,
   updateCurrentPage,
-}
+};
 
 function App({
   visibleStories,
@@ -93,6 +94,8 @@ function App({
       <Container align='center'>
         <CircularProgress style={{ margin: '2em' }} />
       </Container>
+
+      <Comments />
     </Container>
   );
 }
