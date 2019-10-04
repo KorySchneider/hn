@@ -4,6 +4,7 @@ export const UPDATE_VISIBLE_STORIES = 'UPDATE_VISIBLE_STORIES';
 export const UPDATE_CURRENT_PAGE = 'UPDATE_CURRENT_PAGE';
 export const UPDATE_COMMENTS_OPEN = 'UPDATE_COMMENTS_OPEN';
 export const UPDATE_COMMENTS = 'UPDATE_COMMENTS';
+export const UPDATE_COMMENTS_PARENT = 'UPDATE_COMMENTS_PARENT';
 
 export function updateIdCache(ids) {
   return {
@@ -44,5 +45,12 @@ export function updateComments(comments) {
   return {
     type: UPDATE_COMMENTS,
     comments: comments,
+  }
+}
+
+export function updateCommentsParent(parent) {
+  return {
+    type: UPDATE_COMMENTS_PARENT,
+    parent: parent,
   }
 }

@@ -6,6 +6,7 @@ import {
   UPDATE_CURRENT_PAGE,
   UPDATE_COMMENTS_OPEN,
   UPDATE_COMMENTS,
+  UPDATE_COMMENTS_PARENT,
 } from './actions';
 
 function idCache(state = [], action) {
@@ -62,6 +63,15 @@ function comments(state = [], action) {
   }
 }
 
+function commentsParent(state = null, action) {
+  switch(action.type) {
+    case UPDATE_COMMENTS_PARENT:
+      return action.parent;
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
   idCache,
   section,
@@ -69,6 +79,7 @@ const rootReducer = combineReducers({
   currentPage,
   commentsOpen,
   comments,
+  commentsParent,
 });
 
 export default rootReducer;
