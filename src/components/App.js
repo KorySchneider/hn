@@ -6,6 +6,8 @@ import {
   updateCurrentPage,
 } from '../redux/actions';
 
+import moment from 'moment';
+
 import { localStorageViewedKey } from '../redux/store';
 
 import { url, pageSize } from '../redux/store';
@@ -53,8 +55,19 @@ function App({
   }
 
   useEffect(() => {
+    // Init storage
     if (Storage && localStorage.getItem(localStorageViewedKey) === null) {
       localStorage.setItem(localStorageViewedKey, JSON.stringify([]));
+    }
+
+    // Remove old items
+    const data = localStorage.getItem(localStorageViewedKey);
+    if (data) {
+      let viewed = JSON.parse(data);
+      viewed = viewed.filter(item => (
+        moment.unix(item.time).isAfter(moment().subtract(5, 'days'))
+      ));
+      localStorage.setItem(localStorageViewedKey, JSON.stringify(viewed));
     }
   }, []);
 
