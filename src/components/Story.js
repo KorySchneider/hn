@@ -5,6 +5,7 @@ import { localStorageViewedKey } from '../redux/store';
 import {
   updateCommentsOpen,
   updateComments,
+  updateCommentsParent,
 } from '../redux/actions';
 
 import moment from 'moment';
@@ -29,6 +30,7 @@ const mapState = state => ({
 const actionCreators = {
   updateCommentsOpen,
   updateComments,
+  updateCommentsParent,
 };
 
 function Story({
@@ -37,6 +39,7 @@ function Story({
   commentsOpen,
   updateCommentsOpen,
   updateComments,
+  updateCommentsParent,
 }) {
   const [expanded, setExpanded] = useState(false);
   const [viewed, setViewed] = useState(false);
@@ -78,6 +81,7 @@ function Story({
     e.stopPropagation();
     //window.open(`https://news.ycombinator.com/item?id=${data.id}`);
     updateCommentsOpen(true);
+    updateCommentsParent(data);
     updateComments(data.kids);
   }
 
@@ -101,7 +105,7 @@ function Story({
           <Typography variant='h6'>
             {h2p(data.title)}
           </Typography>
-          <Typography variant='caption' align='right' gutterBottom>
+          <Typography variant='caption' gutterBottom>
             {data.url && data.url.split('/')[2].replace(/^www\./, '')}
           </Typography>
           <Typography gutterBottom>
