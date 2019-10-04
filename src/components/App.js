@@ -6,6 +6,8 @@ import {
   updateCurrentPage,
 } from '../redux/actions';
 
+import { localStorageViewedKey } from '../redux/store';
+
 import { url, pageSize } from '../redux/store';
 
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
@@ -48,6 +50,12 @@ function App({
     const result = await response.json();
     return result;
   }
+
+  useEffect(() => {
+    if (Storage && localStorage.getItem(localStorageViewedKey) === null) {
+      localStorage.setItem(localStorageViewedKey, JSON.stringify([]));
+    }
+  }, []);
 
   useEffect(() => {
     async function fetchPage() {

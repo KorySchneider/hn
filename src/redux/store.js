@@ -3,6 +3,7 @@ import rootReducer from './reducers';
 
 export const url = 'https://hacker-news.firebaseio.com/v0';
 export const pageSize = 10;
+export const localStorageViewedKey = 'hnViewed';
 
 const store = createStore(
   rootReducer,

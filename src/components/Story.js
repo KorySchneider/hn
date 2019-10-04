@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { localStorageViewedKey } from '../redux/store';
 
 import moment from 'moment';
 import h2p from 'html2plaintext';
@@ -17,9 +18,37 @@ const subtextStyle = {
 
 function Story({ data, timeout }) {
   const [expanded, setExpanded] = useState(false);
+  const [viewed, setViewed] = useState(false);
+
+  // Check if previously viewed
+  useEffect(() => {
+    const viewed = JSON.parse(localStorage.getItem(localStorageViewedKey));
+    for (let i = 0; i < viewed.length; i++) {
+      if (viewed[i].id === data.id) setViewed(true);
+    }
+  }, [data.id]);
+
+  const addToViewed = () => {
+    setViewed(true);
+    let viewed = JSON.parse(localStorage.getItem(localStorageViewedKey));
+    let alreadyViewed = false;
+    for (let i = 0; i < viewed.length; i++) {
+      if (viewed[i].id === data.id) alreadyViewed = true;
+    }
+    if (!alreadyViewed) {
+      viewed.push({
+        id: data.id,
+        time: moment().unix(),
+      });
+      localStorage.setItem(localStorageViewedKey, JSON.stringify(viewed));
+    }
+  }
 
   const handleClick = (e) => {
     e.stopPropagation();
+
+    addToViewed();
+
     if (data.url) window.open(data.url);
     if (data.text) setExpanded(expanded => !expanded);
   }
@@ -61,18 +90,22 @@ function Story({ data, timeout }) {
 
           <Container align='right'>
             <Typography variant='overline' style={subtextStyle}>
-              {data.score + ' points'}
-            </Typography>
-            <Typography variant='overline' style={subtextStyle}>
               {moment.unix(data.time).fromNow()}
             </Typography>
-            <Button
-              onClick={e => openComments(e)}
-              style={{ fontWeight: 400, ...subtextStyle }}
-              size='small'
-            >
-              {(data.kids && data.kids.length + ' replies') || '0 replies'}
-            </Button>
+            {viewed &&
+              <Typography variant='overline' style={subtextStyle}>
+                {data.score + ' points'}
+              </Typography>
+            }
+            {viewed &&
+              <Button
+                onClick={e => openComments(e)}
+                style={{ fontWeight: 400, ...subtextStyle }}
+                size='small'
+              >
+                {(data.kids && data.kids.length + ' replies') || '0 replies'}
+              </Button>
+            }
           </Container>
         </CardContent>
       </Card>
