@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux';
 import { updateCommentsOpen } from '../redux/actions';
 import { url } from '../redux/store';
+import h2p from 'html2plaintext';
 
 import Comment from './Comment';
 
@@ -71,9 +72,18 @@ function Comments({
             <Typography variant='h5'>
               {commentsParent.title}
             </Typography>
-            <Typography variant='caption' gutterBottom>
-              {commentsParent.url && commentsParent.url.split('/')[2].replace(/^www\./, '')}
-            </Typography>
+            {commentsParent.url &&
+              <Typography variant='caption' gutterBottom>
+                {commentsParent.url.split('/')[2].replace(/^www\./, '')}
+              </Typography>
+            }
+            {commentsParent.text &&
+              commentsParent.text.split('<p>').map(p => (
+                <Typography gutterBottom key={p}>
+                  {h2p(p)}
+                </Typography>
+              ))
+            }
             <Container align='right'>
               <Typography variant='overline'>
                 &mdash; {commentsParent.by}
