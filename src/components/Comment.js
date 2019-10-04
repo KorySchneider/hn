@@ -23,8 +23,8 @@ function Comment({ data }) {
   return (
     <Card style={style} elevation={3}>
       <CardContent>
-        {data.text.split('<p>').map(p => (
-          <Typography gutterBottom key={p}>
+        {data.text.split('<p>').map((p, i) => (
+          <Typography gutterBottom key={p+i}>
             {h2p(p)}
           </Typography>
         ))}
