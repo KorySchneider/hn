@@ -21,9 +21,9 @@ const subtextStyle = {
 
 function Comment({ data }) {
   return (
-    <Card style={style} elevation={3}>
+    <Card style={style} raised>
       <CardContent>
-        {data.text.split('<p>').map((p, i) => (
+        {data.text && data.text.split('<p>').map((p, i) => (
           <Typography gutterBottom key={p+i}>
             {h2p(p)}
           </Typography>
