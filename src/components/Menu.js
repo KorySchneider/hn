@@ -44,6 +44,7 @@ function Menu({
     let clickedSection = event.currentTarget.id;
     if (clickedSection !== section) {
       updateVisibleStories([]);
+      updateIdCache([]);
       updateSection(clickedSection);
       updateCurrentPage(1);
     }
