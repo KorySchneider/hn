@@ -15,6 +15,7 @@ import Slide from '@material-ui/core/Slide';
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
@@ -105,16 +106,18 @@ function Story({
           <Typography variant='h6'>
             {h2p(data.title)}
           </Typography>
-          <Typography variant='caption' gutterBottom>
+          <Typography variant='caption'>
             {data.url && data.url.split('/')[2].replace(/^www\./, '')}
           </Typography>
-          <Typography gutterBottom>
+          <Typography>
             {expanded && h2p(data.text)}
             {!expanded && data.text &&
               h2p(data.text.substring(0, 70) + '...')
             }
           </Typography>
+        </CardContent>
 
+        <CardActions>
           <Container align='right'>
             <Typography variant='overline' style={subtextStyle}>
               {moment.unix(data.time).fromNow()}
@@ -134,7 +137,7 @@ function Story({
               </Button>
             }
           </Container>
-        </CardContent>
+        </CardActions>
       </Card>
     </Slide>
   )

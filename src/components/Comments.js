@@ -13,6 +13,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 
 const mapState = state => ({
@@ -47,6 +48,7 @@ function Comments({
         const item = await fetchItem(comments[i]);
         items.push(item);
       }
+      items = items.filter(item => !item.dead && !item.deleted);
       setVisibleComments(items);
     }
     fetchComments();
@@ -67,29 +69,32 @@ function Comments({
           padding: '5px',
         }}
       >
-        <Card>
+        <Card raised>
           <CardContent style={{ padding: '1em' }}>
             <Typography variant='h5'>
               {commentsParent.title}
             </Typography>
             {commentsParent.url &&
-              <Typography variant='caption' gutterBottom>
+              <Typography variant='caption'>
                 {commentsParent.url.split('/')[2].replace(/^www\./, '')}
               </Typography>
             }
             {commentsParent.text &&
               commentsParent.text.split('<p>').map(p => (
-                <Typography gutterBottom key={p}>
+                <Typography key={p}>
                   {h2p(p)}
                 </Typography>
               ))
             }
+          </CardContent>
+
+          <CardActions>
             <Container align='right'>
               <Typography variant='overline'>
                 &mdash; {commentsParent.by}
               </Typography>
             </Container>
-          </CardContent>
+          </CardActions>
         </Card>
 
         <Fab
@@ -99,6 +104,7 @@ function Comments({
             position: 'fixed',
             bottom: '2em',
             right: '2em',
+            zIndex: 1,
           }}
         >
           <CloseIcon />
