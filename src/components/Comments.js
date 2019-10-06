@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux';
 import { updateCommentsOpen } from '../redux/actions';
-import { url } from '../redux/store';
+import fetchItem from '../util/fetchItem';
 
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import h2p from 'html2plaintext';
@@ -44,12 +44,6 @@ function Comments({
       setCommentsPage(commentsPage => ++commentsPage);
     }
   });
-
-  async function fetchItem(id) {
-    const response = await fetch(`${url}/item/${id}.json`);
-    const result = await response.json();
-    return result;
-  }
 
   useEffect(() => {
     async function fetchComments() {

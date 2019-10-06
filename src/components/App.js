@@ -9,8 +9,9 @@ import {
 import moment from 'moment';
 
 import { localStorageViewedKey } from '../redux/store';
+import { pageSize } from '../redux/store';
 
-import { url, pageSize } from '../redux/store';
+import fetchItem from '../util/fetchItem';
 
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
@@ -47,12 +48,6 @@ function App({
       updateCurrentPage(page + 1);
     }
   }, 500, 200)
-
-  async function fetchItem(id) {
-    const response = await fetch(`${url}/item/${id}.json`);
-    const result = await response.json();
-    return result;
-  }
 
   useEffect(() => {
     // Init storage
