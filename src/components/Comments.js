@@ -88,6 +88,7 @@ function Comments({
   return (
     <Modal
       open={commentsOpen}
+      onClose={() => updateCommentsOpen(false)}
       style={{ overflowY: 'scroll' }}
       ref={scrollRef}
     >
