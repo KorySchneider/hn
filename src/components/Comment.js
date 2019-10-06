@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 
+import fetchItem from '../util/fetchItem';
+
 import moment from 'moment';
 import h2p from 'html2plaintext';
 
-import CardSubtextItem from './CardSubtextItem';
+import CardSubtextItem, { cardSubtextStyle } from './CardSubtextItem';
 import Spinner from './Spinner';
 
 import Card from '@material-ui/core/Card';
@@ -14,21 +16,20 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Slide from '@material-ui/core/Slide';
 
-const style = {
-  margin: '1em',
-  padding: '5px',
-};
-
-const subtextStyle = {
-  marginLeft: '20px',
-  padding: '5px',
-};
-
 function Comment({ data, depth }) {
 
   const [childComments, setChildComments] = useState([]);
+  const [fetchingKids, setFetchingKids] = useState(false);
 
-  const loadChildComments = () => {
+  const loadChildComments = async () => {
+    setFetchingKids(true);
+    let kids = [];
+    for (let i = 0; i < data.kids.length; i++) {
+      const kid = await fetchItem(data.kids[i]);
+      kids.push(kid);
+    }
+    setChildComments(kids);
+    setFetchingKids(false);
   };
 
   return (
@@ -39,7 +40,14 @@ function Comment({ data, depth }) {
         mountOnEnter
         unmountOnExit
       >
-        <Card style={style} raised>
+        <Card
+          raised
+          style={{
+            margin: '1em',
+            padding: '5px',
+            marginLeft: `calc(1em + ${depth}em)`
+          }}
+        >
           <CardContent>
             {data.text && data.text.split('<p>').map((p, i) => (
               <Typography gutterBottom key={p+i}>
@@ -58,7 +66,7 @@ function Comment({ data, depth }) {
               />
               <Button
                 size='small'
-                style={{ fontWeight: 400, ...subtextStyle }}
+                style={{ fontWeight: 400, ...cardSubtextStyle }}
                 onClick={loadChildComments}
                 disabled={!data.kids || (data.kids && data.kids.length === 0)}
               >
