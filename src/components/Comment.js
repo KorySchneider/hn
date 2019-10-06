@@ -4,6 +4,7 @@ import moment from 'moment';
 import h2p from 'html2plaintext';
 
 import CardSubtextItem from './CardSubtextItem';
+import Spinner from './Spinner';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -68,6 +69,9 @@ function Comment({ data, depth }) {
         </Card>
       </Slide>
 
+      {fetchingKids &&
+        <Spinner />
+      }
       {childComments.map((item, i) => (
         <Comment
           data={item}

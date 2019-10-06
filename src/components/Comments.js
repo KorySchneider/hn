@@ -9,12 +9,12 @@ import moment from 'moment';
 
 import Comment from './Comment';
 import CardSubtextItem from './CardSubtextItem';
+import Spinner from './Spinner';
 
 import Modal from '@material-ui/core/Modal';
 import Container from '@material-ui/core/Container';
 import Fab from '@material-ui/core/Fab';
 import CloseIcon from '@material-ui/icons/Close';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -162,9 +162,7 @@ function Comments({
           />
         ))}
 
-        <Container align='center'>
-          <CircularProgress style={{ margin: '2em' }} />
-        </Container>
+        <Spinner />
       </Container>
     </Modal>
   )

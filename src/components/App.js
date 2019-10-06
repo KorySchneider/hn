@@ -18,9 +18,9 @@ import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import Menu from './Menu';
 import Story from './Story';
 import Comments from './Comments';
+import Spinner from './Spinner';
 
 import Container from '@material-ui/core/Container';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 const mapState = state => ({
   visibleStories: state.visibleStories,
@@ -99,9 +99,7 @@ function App({
         <Story data={item} key={item.title} timeout={i * 50} />
       ))}
 
-      <Container align='center'>
-        <CircularProgress style={{ margin: '2em' }} />
-      </Container>
+      <Spinner />
 
       <Comments />
     </Container>
