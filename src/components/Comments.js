@@ -42,7 +42,8 @@ function Comments({
   const commentsPageSize = 10;
 
   const scrollRef = useBottomScrollListener(() => {
-    if (visibleComments.length <= commentsPage * commentsPageSize) {
+    if (commentsOpen &&
+        visibleComments.length <= commentsPage * commentsPageSize) {
       setCommentsPage(commentsPage => ++commentsPage);
     }
   });
@@ -50,9 +51,7 @@ function Comments({
   useEffect(() => {
     async function fetchComments() {
       if (!commentsOpen) return;
-      if (visibleComments.length === 0 ||
-      (visibleComments.length <= (commentsPage - 1) * commentsPageSize &&
-      comments.length >= commentsPage * commentsPageSize)) {
+      if (visibleComments.length < commentsPage * commentsPageSize) {
         let items = [];
         const ids = comments.slice(
           (commentsPage * commentsPageSize) - commentsPageSize,
