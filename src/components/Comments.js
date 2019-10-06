@@ -154,7 +154,7 @@ function Comments({
         {visibleComments.map((item, i) => (
           <Comment
             data={item}
-            key={item.by + item.id}
+            key={item.id}
             timeout={0}
             depth={0}
           />
