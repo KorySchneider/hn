@@ -64,6 +64,7 @@ function Comments({
         // Filter duplicate and null items
         items = items.filter(item => {
           if (item === null) return false;
+          if (item.dead || item.deleted) return false;
           for (let i = 0; i < visibleComments.length; i++) {
             if (item.id === visibleComments[i].id)
               return false;
