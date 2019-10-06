@@ -44,7 +44,7 @@ function App({
 
   useBottomScrollListener(() => {
     if (visibleStories.length === page * pageSize) {
-      updateCurrentPage(page => page + 1);
+      updateCurrentPage(page + 1);
     }
   }, 500, 200)
 
