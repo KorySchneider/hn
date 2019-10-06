@@ -82,14 +82,16 @@ function Comments({
     fetchComments();
   }, [comments, commentsPage, visibleComments]);
 
+  const handleCloseClick = () => {
+    updateCommentsOpen(false);
+    setVisibleComments([]);
+    setCommentsPage(1);
+  };
+
   if (commentsParent === null) return null;
   return (
     <Modal
       open={commentsOpen}
-      onClose={() => {
-        updateCommentsOpen(false);
-        setVisibleComments([]);
-      }}
       style={{ overflowY: 'scroll' }}
       ref={scrollRef}
     >
@@ -137,7 +139,7 @@ function Comments({
         </Slide>
 
         <Fab
-          onClick={() => updateCommentsOpen(false)}
+          onClick={handleCloseClick}
           color='primary'
           style={{
             position: 'fixed',
