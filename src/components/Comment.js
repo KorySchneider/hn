@@ -26,7 +26,6 @@ function Comment({ data, depth }) {
   const [childComments, setChildComments] = useState([]);
 
   const loadChildComments = () => {
-    console.log('test');
   };
 
   return (

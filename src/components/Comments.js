@@ -53,11 +53,9 @@ function Comments({
 
   useEffect(() => {
     async function fetchComments() {
-      console.log(commentsPage, commentsPageSize, visibleComments.length);
       if (visibleComments.length === 0 ||
       (visibleComments.length <= (commentsPage - 1) * commentsPageSize &&
       comments.length >= commentsPage * commentsPageSize)) {
-        console.log('fetch comments');
         let items = [];
         const ids = comments.slice(
           (commentsPage * commentsPageSize) - commentsPageSize,
