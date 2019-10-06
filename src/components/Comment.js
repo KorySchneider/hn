@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import h2p from 'html2plaintext';
 
+import CardSubtextItem from './CardSubtextItem';
+
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -47,12 +49,12 @@ function Comment({ data, depth }) {
 
           <CardActions>
             <Container align='right'>
-              <Typography variant='overline' style={subtextStyle}>
-                &mdash; {data.by}
-              </Typography>
-              <Typography variant='overline' style={subtextStyle}>
-                {moment.unix(data.time).fromNow()}
-              </Typography>
+              <CardSubtextItem
+                text={<span>&mdash; {data.by}</span>}
+              />
+              <CardSubtextItem
+                text={moment.unix(data.time).fromNow()}
+              />
               <Button
                 size='small'
                 style={{ fontWeight: 400, ...subtextStyle }}

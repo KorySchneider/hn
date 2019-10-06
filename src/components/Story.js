@@ -11,6 +11,8 @@ import {
 import moment from 'moment';
 import h2p from 'html2plaintext';
 
+import CardSubtextItem, { cardSubtextStyle } from './CardSubtextItem';
+
 import Slide from '@material-ui/core/Slide';
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
@@ -18,11 +20,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
-const subtextStyle = {
-  marginLeft: '20px',
-  padding: '5px',
-};
 
 const mapState = state => ({
   commentsOpen: state.commentsOpen,
@@ -119,18 +116,18 @@ function Story({
 
         <CardActions>
           <Container align='right'>
-            <Typography variant='overline' style={subtextStyle}>
-              {moment.unix(data.time).fromNow()}
-            </Typography>
+            <CardSubtextItem
+              text={moment.unix(data.time).fromNow()}
+            />
             {viewed &&
-              <Typography variant='overline' style={subtextStyle}>
-                {data.score + ' points'}
-              </Typography>
+              <CardSubtextItem
+                text={data.score + ' points'}
+              />
             }
             {viewed &&
               <Button
                 onClick={e => openComments(e)}
-                style={{ fontWeight: 400, ...subtextStyle }}
+                style={{ fontWeight: 400, ...cardSubtextStyle }}
                 size='small'
               >
                 {(data.kids && data.kids.length + ' replies') || '0 replies'}

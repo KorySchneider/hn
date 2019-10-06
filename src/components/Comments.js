@@ -5,8 +5,10 @@ import fetchItem from '../util/fetchItem';
 
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import h2p from 'html2plaintext';
+import moment from 'moment';
 
 import Comment from './Comment';
+import CardSubtextItem from './CardSubtextItem';
 
 import Modal from '@material-ui/core/Modal';
 import Container from '@material-ui/core/Container';
@@ -124,9 +126,12 @@ function Comments({
 
             <CardActions>
               <Container align='right'>
-                <Typography variant='overline'>
-                  &mdash; {commentsParent.by}
-                </Typography>
+                <CardSubtextItem
+                  text={<span>&mdash; {commentsParent.by}</span>}
+                />
+                <CardSubtextItem
+                  text={moment.unix(commentsParent.time).fromNow()}
+                />
               </Container>
             </CardActions>
           </Card>
