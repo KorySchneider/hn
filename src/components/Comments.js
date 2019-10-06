@@ -49,6 +49,7 @@ function Comments({
 
   useEffect(() => {
     async function fetchComments() {
+      if (!commentsOpen) return;
       if (visibleComments.length === 0 ||
       (visibleComments.length <= (commentsPage - 1) * commentsPageSize &&
       comments.length >= commentsPage * commentsPageSize)) {
@@ -89,7 +90,7 @@ function Comments({
   return (
     <Modal
       open={commentsOpen}
-      onClose={() => updateCommentsOpen(false)}
+      onClose={handleCloseClick}
       style={{ overflowY: 'scroll' }}
       ref={scrollRef}
     >
