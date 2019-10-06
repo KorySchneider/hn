@@ -78,7 +78,7 @@ function Comments({
       }
     }
     fetchComments();
-  }, [comments, commentsPage, visibleComments]);
+  }, [comments, commentsPage, commentsOpen, visibleComments]);
 
   const handleCloseClick = () => {
     updateCommentsOpen(false);

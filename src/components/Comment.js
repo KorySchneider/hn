@@ -21,13 +21,18 @@ function Comment({ data, depth }) {
   const [childComments, setChildComments] = useState([]);
   const [fetchingKids, setFetchingKids] = useState(false);
 
-  const loadChildComments = async () => {
+  const fetchKids = async () => {
     setFetchingKids(true);
     let kids = [];
     for (let i = 0; i < data.kids.length; i++) {
       const kid = await fetchItem(data.kids[i]);
       kids.push(kid);
     }
+    kids = kids.filter(item => {
+      if (item === null) return false;
+      if (item.dead || item.deleted) return false;
+      return true;
+    })
     setChildComments(kids);
     setFetchingKids(false);
   };
@@ -67,7 +72,7 @@ function Comment({ data, depth }) {
               <Button
                 size='small'
                 style={{ fontWeight: 400, ...cardSubtextStyle }}
-                onClick={loadChildComments}
+                onClick={fetchKids}
                 disabled={!data.kids || (data.kids && data.kids.length === 0)}
               >
                 {(data.kids && data.kids.length + ' replies') || '0 replies'}
