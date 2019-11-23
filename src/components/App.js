@@ -68,7 +68,10 @@ function App({
 
   useEffect(() => {
     async function fetchPage() {
-      if (idCache.length > 0 && visibleStories.length < page * pageSize) {
+      if (idCache.length > 0 &&
+        visibleStories.length < page * pageSize &&
+        visibleStories.length < idCache.length
+      ) {
         let stories = [];
         const ids = idCache.slice(
           (page * pageSize) - pageSize,
@@ -78,6 +81,18 @@ function App({
           const story = await fetchItem(ids[i]);
           stories.push(story);
         }
+
+        // filter duplicates
+        let storyIds = [];
+        stories = stories.filter(story => {
+          if (storyIds.includes(story.id)) {
+            return false;
+          } else {
+            storyIds.push(story.id);
+            return true;
+          }
+        });
+
         updateVisibleStories(visibleStories.concat(stories));
       }
     }
@@ -87,19 +102,19 @@ function App({
     idCache,
     visibleStories,
     updateVisibleStories,
-  ])
+  ]);
 
   return (
     <Container maxWidth='md'>
-      {/* Menu */}
       <Menu />
 
-      {/* Stories */}
       {visibleStories.map((item, i) => (
         <Story data={item} key={item.title} timeout={i * 50} />
       ))}
 
-      <Spinner />
+      { visibleStories.length < idCache.length && (
+        <Spinner />
+      )}
 
       <Comments />
     </Container>
