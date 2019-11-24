@@ -127,7 +127,7 @@ function Story({
             {viewed &&
               <Button
                 onClick={e => openComments(e)}
-                style={{ fontWeight: 400, ...cardSubtextStyle }}
+                style={cardSubtextStyle}
                 size='small'
               >
                 {(data.kids && data.kids.length + ' replies') || '0 replies'}

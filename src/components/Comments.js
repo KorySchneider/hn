@@ -8,7 +8,7 @@ import h2p from 'html2plaintext';
 import moment from 'moment';
 
 import Comment from './Comment';
-import CardSubtextItem from './CardSubtextItem';
+import CardSubtextItem, { cardSubtextStyle } from './CardSubtextItem';
 import Spinner from './Spinner';
 
 import Modal from '@material-ui/core/Modal';
@@ -20,6 +20,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Slide from '@material-ui/core/Slide';
+import Button from '@material-ui/core/Button';
 
 const mapState = state => ({
   commentsOpen: state.commentsOpen,
@@ -91,6 +92,10 @@ function Comments({
     setCommentsPage(1);
   };
 
+  const openYCombinatorLink = () => {
+    window.open(`https://news.ycombinator.com/item?id=${commentsParent.id}`);
+  };
+
   if (commentsParent === null) return null;
   return (
     <Modal
@@ -107,6 +112,7 @@ function Comments({
           padding: '5px',
         }}
       >
+        {/* Parent Story */}
         <Slide
           direction='up'
           mountOnEnter
@@ -140,11 +146,19 @@ function Comments({
                 <CardSubtextItem
                   text={moment.unix(commentsParent.time).fromNow()}
                 />
+                <Button
+                  style={cardSubtextStyle}
+                  size='small'
+                  onClick={openYCombinatorLink}
+                >
+                  View on YC
+                </Button>
               </Container>
             </CardActions>
           </Card>
         </Slide>
 
+        {/* Close Button */}
         <Fab
           onClick={handleCloseClick}
           color='primary'
@@ -158,6 +172,7 @@ function Comments({
           <CloseIcon />
         </Fab>
 
+        {/* Comments */}
         {visibleComments.map((item, i) => (
           <Comment
             data={item}
@@ -167,6 +182,7 @@ function Comments({
           />
         ))}
 
+        {/* Spinner */}
         {fetching && <Spinner />}
       </Container>
     </Modal>

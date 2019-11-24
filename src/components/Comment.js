@@ -71,7 +71,7 @@ function Comment({ data, depth }) {
               />
               <Button
                 size='small'
-                style={{ fontWeight: 400, ...cardSubtextStyle }}
+                style={cardSubtextStyle}
                 onClick={fetchKids}
                 disabled={!data.kids || (data.kids && data.kids.length === 0)}
               >
