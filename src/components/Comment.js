@@ -89,7 +89,7 @@ function Comment({ data, depth }) {
         <Comment
           data={item}
           key={item.by + item.id}
-          timeout={i * 50}
+          timeout={i * 30}
           depth={depth + 1}
         />
       ))}

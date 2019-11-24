@@ -109,7 +109,7 @@ function App({
       <Menu />
 
       {visibleStories.map((item, i) => (
-        <Story data={item} key={item.title} timeout={i * 50} />
+        <Story data={item} key={item.title} timeout={i * 30} />
       ))}
 
       { visibleStories.length < idCache.length && (
