@@ -39,6 +39,7 @@ function Comments({
 }) {
   const [visibleComments, setVisibleComments] = useState([]);
   const [commentsPage, setCommentsPage] = useState(1);
+  const [fetching, setFetching] = useState(false);
   const commentsPageSize = 10;
 
   const scrollRef = useBottomScrollListener(() => {
@@ -50,7 +51,10 @@ function Comments({
 
   useEffect(() => {
     async function fetchComments() {
-      if (!commentsOpen) return;
+      if (!commentsOpen) {
+        setFetching(false);
+        return;
+      }
       if (visibleComments.length < commentsPage * commentsPageSize) {
         let items = [];
         const ids = comments.slice(
@@ -75,7 +79,9 @@ function Comments({
           setVisibleComments(visibleComments.concat(items));
         }
       }
+      setFetching(false);
     }
+    setFetching(true);
     fetchComments();
   }, [comments, commentsPage, commentsOpen, visibleComments]);
 
@@ -161,7 +167,7 @@ function Comments({
           />
         ))}
 
-        <Spinner />
+        {fetching && <Spinner />}
       </Container>
     </Modal>
   )
