@@ -25,9 +25,22 @@ const actionCreators = {
   updateVisibleStories,
 };
 
-const style = {
-  margin: '2em auto',
-  padding: '0.5em',
+const styles = {
+  menu: {
+    margin: '2em auto',
+    padding: '0.5em',
+    position: 'sticky',
+    top: '0.5em',
+    zIndex: 1,
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  button: {
+    paddingTop: '0.75em',
+    paddingBottom: '0.75em',
+  },
 };
 
 function Menu({
@@ -38,6 +51,7 @@ function Menu({
   updateCurrentPage,
   updateVisibleStories,
 }) {
+  const sections = ['top', 'new', 'best', 'ask', 'show', 'job'];
 
   function handleMenuClick(event) {
     event.stopPropagation();
@@ -60,54 +74,18 @@ function Menu({
   }, [section, updateIdCache])
 
   return (
-    <Paper style={style} elevation={2} align='center'>
-      <Button
-        disabled={section === 'top'}
-        id='top'
-        onClick={e => handleMenuClick(e)}
-      >
-        Top
-      </Button>
-
-      <Button
-        disabled={section === 'new'}
-        id='new'
-        onClick={e => handleMenuClick(e)}
-      >
-        New
-      </Button>
-
-      <Button
-        disabled={section === 'best'}
-        id='best'
-        onClick={e => handleMenuClick(e)}
-      >
-        Best
-      </Button>
-
-      <Button
-        disabled={section === 'ask'}
-        id='ask'
-        onClick={e => handleMenuClick(e)}
-      >
-        Ask
-      </Button>
-
-      <Button
-        disabled={section === 'show'}
-        id='show'
-        onClick={e => handleMenuClick(e)}
-      >
-        Show
-      </Button>
-
-      <Button
-        disabled={section === 'job'}
-        id='job'
-        onClick={e => handleMenuClick(e)}
-      >
-        Jobs
-      </Button>
+    <Paper style={styles.menu} elevation={4} align='center' id='menu'>
+      {sections.map(name => (
+        <Button
+          disabled={section === name}
+          id={name}
+          key={name}
+          onClick={e => handleMenuClick(e)}
+          style={styles.button}
+        >
+          {name === 'job' ? 'jobs' : name}
+        </Button>
+      ))}
     </Paper>
   )
 }
