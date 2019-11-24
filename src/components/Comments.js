@@ -93,7 +93,14 @@ function Comments({
   };
 
   const openYCombinatorLink = () => {
-    window.open(`https://news.ycombinator.com/item?id=${commentsParent.id}`);
+    window.open(
+      `https://news.ycombinator.com/item?id=${commentsParent.id}`,
+      '_blank'
+    );
+  };
+
+  const openStoryLink = () => {
+    window.open(commentsParent, '_blank');
   };
 
   if (commentsParent === null) return null;
@@ -121,11 +128,19 @@ function Comments({
         >
           <Card raised>
             <CardContent style={{ padding: '1em' }}>
-              <Typography variant='h5'>
+              <Typography
+                variant='h5'
+                onClick={openStoryLink}
+                style={commentsParent.url && { cursor: 'pointer' }}
+              >
                 {commentsParent.title}
               </Typography>
               {commentsParent.url &&
-                <Typography variant='caption'>
+                <Typography
+                  variant='caption'
+                  onClick={openStoryLink}
+                  style={{ cursor: 'pointer' }}
+                >
                   {commentsParent.url.split('/')[2].replace(/^www\./, '')}
                 </Typography>
               }
