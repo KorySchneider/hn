@@ -80,7 +80,7 @@ function Story({
     //window.open(`https://news.ycombinator.com/item?id=${data.id}`);
     updateCommentsOpen(true);
     updateCommentsParent(data);
-    updateComments(data.kids);
+    updateComments(data.kids || []);
   }
 
   return (
