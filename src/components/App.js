@@ -20,7 +20,7 @@ import Story from './Story';
 import Comments from './Comments';
 import Spinner from './Spinner';
 
-import { ThemeProvider } from '@mui/material/styles';
+import { StyledEngineProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 
 const mapState = state => ({
@@ -106,17 +106,19 @@ function App({
   }, [page, idCache, visibleStories, updateVisibleStories]);
 
   return (
-    <Container maxWidth="md">
-      <Menu />
+    <StyledEngineProvider injectFirst>
+      <Container maxWidth="md">
+        <Menu />
 
-      {visibleStories.map((item, i) => (
-        <Story data={item} key={item.title} timeout={i * 30} />
-      ))}
+        {visibleStories.map((item, i) => (
+          <Story data={item} key={item.title} timeout={i * 30} />
+        ))}
 
-      {visibleStories.length < idCache.length && <Spinner />}
+        {visibleStories.length < idCache.length && <Spinner />}
 
-      <Comments />
-    </Container>
+        <Comments />
+      </Container>
+    </StyledEngineProvider>
   );
 }
 
