@@ -10,8 +10,8 @@ import {
 
 import { url } from '../redux/store';
 
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 
 const mapState = state => ({
   section: state.section,

@@ -20,7 +20,8 @@ import Story from './Story';
 import Comments from './Comments';
 import Spinner from './Spinner';
 
-import Container from '@material-ui/core/Container';
+import { ThemeProvider } from '@mui/material/styles';
+import Container from '@mui/material/Container';
 
 const mapState = state => ({
   visibleStories: state.visibleStories,

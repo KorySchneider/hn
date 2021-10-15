@@ -11,16 +11,16 @@ import Comment from './Comment';
 import CardSubtextItem, { cardSubtextStyle } from './CardSubtextItem';
 import Spinner from './Spinner';
 
-import Modal from '@material-ui/core/Modal';
-import Container from '@material-ui/core/Container';
-import Fab from '@material-ui/core/Fab';
-import CloseIcon from '@material-ui/icons/Close';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Typography from '@material-ui/core/Typography';
-import Slide from '@material-ui/core/Slide';
-import Button from '@material-ui/core/Button';
+import Modal from '@mui/material/Modal';
+import Container from '@mui/material/Container';
+import Fab from '@mui/material/Fab';
+import CloseIcon from '@mui/icons-material/Close';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Typography from '@mui/material/Typography';
+import Slide from '@mui/material/Slide';
+import Button from '@mui/material/Button';
 
 const mapState = state => ({
   commentsOpen: state.commentsOpen,
@@ -201,7 +201,7 @@ function Comments({
         {fetching && <Spinner />}
       </Container>
     </Modal>
-  )
+  );
 }
 
 export default connect(mapState, actionCreators)(Comments);

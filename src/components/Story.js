@@ -13,13 +13,13 @@ import h2p from 'html2plaintext';
 
 import CardSubtextItem, { cardSubtextStyle } from './CardSubtextItem';
 
-import Slide from '@material-ui/core/Slide';
-import Container from '@material-ui/core/Container';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import Slide from '@mui/material/Slide';
+import Container from '@mui/material/Container';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 const mapState = state => ({
   commentsOpen: state.commentsOpen,
@@ -137,7 +137,7 @@ function Story({
         </CardActions>
       </Card>
     </Slide>
-  )
+  );
 }
 
 export default connect(mapState, actionCreators)(Story);

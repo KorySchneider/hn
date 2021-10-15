@@ -8,13 +8,13 @@ import h2p from 'html2plaintext';
 import CardSubtextItem, { cardSubtextStyle } from './CardSubtextItem';
 import Spinner from './Spinner';
 
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Slide from '@material-ui/core/Slide';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Slide from '@mui/material/Slide';
 
 function Comment({ data, depth }) {
 

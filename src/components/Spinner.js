@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Container from '@material-ui/core/Container';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Container from '@mui/material/Container';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Spinner() {
   return (
