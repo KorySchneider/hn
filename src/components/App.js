@@ -42,12 +42,19 @@ function App({
   page,
   updateCurrentPage,
 }) {
-
-  useBottomScrollListener(() => {
-    if (visibleStories.length === page * pageSize) {
-      updateCurrentPage(page + 1);
+  useBottomScrollListener(
+    () => {
+      console.log('FETCH', page);
+      if (visibleStories.length === page * pageSize) {
+        updateCurrentPage(page + 1);
+      }
+    },
+    {
+      offset: window.innerHeight / 2,
+      triggerOnNoScroll: true,
+      debounce: 500,
     }
-  }, 500, 200)
+  );
 
   useEffect(() => {
     // Init storage
@@ -59,24 +66,22 @@ function App({
     const data = localStorage.getItem(localStorageViewedKey);
     if (data) {
       let viewed = JSON.parse(data);
-      viewed = viewed.filter(item => (
+      viewed = viewed.filter(item =>
         moment.unix(item.time).isAfter(moment().subtract(5, 'days'))
-      ));
+      );
       localStorage.setItem(localStorageViewedKey, JSON.stringify(viewed));
     }
   }, []);
 
   useEffect(() => {
     async function fetchPage() {
-      if (idCache.length > 0 &&
+      if (
+        idCache.length > 0 &&
         visibleStories.length < page * pageSize &&
         visibleStories.length < idCache.length
       ) {
         let stories = [];
-        const ids = idCache.slice(
-          (page * pageSize) - pageSize,
-          page * pageSize
-        );
+        const ids = idCache.slice(page * pageSize - pageSize, page * pageSize);
         for (let i = 0; i < ids.length; i++) {
           const story = await fetchItem(ids[i]);
           stories.push(story);
@@ -97,24 +102,17 @@ function App({
       }
     }
     fetchPage();
-  }, [
-    page,
-    idCache,
-    visibleStories,
-    updateVisibleStories,
-  ]);
+  }, [page, idCache, visibleStories, updateVisibleStories]);
 
   return (
-    <Container maxWidth='md'>
+    <Container maxWidth="md">
       <Menu />
 
       {visibleStories.map((item, i) => (
         <Story data={item} key={item.title} timeout={i * 30} />
       ))}
 
-      { visibleStories.length < idCache.length && (
-        <Spinner />
-      )}
+      {visibleStories.length < idCache.length && <Spinner />}
 
       <Comments />
     </Container>
