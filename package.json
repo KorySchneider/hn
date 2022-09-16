@@ -10,7 +10,7 @@
     "@mui/material": "^5.0.4",
     "@mui/styles": "^5.0.1",
     "html2plaintext": "^2.1.2",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "react": "^16.9.0",
     "react-bottom-scroll-listener": "^5.0.0",
     "react-dom": "^16.9.0",
